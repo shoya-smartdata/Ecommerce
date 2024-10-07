@@ -18,12 +18,12 @@ app.use('/api',productRoute );
 app.use('/api', cartRoutes);
 app.use('/api', orderRoute)
 
-sequelize.sync({ alter: true })  // This drops and recreates all tables (use in dev only)
+sequelize.sync({ alter: true })  
   .then(() => {
-    console.log('Database & tables created!');
+    console.log('db & tables created!');
   })
   .catch(err => {
-    console.error('Error syncing database:', err);
+    console.error('error in syncing :', err);
   });
 
 

@@ -9,8 +9,8 @@ productRoute.get('/getapp/:id', getProductById )
 
 
 productRoute.post('/createproduct',authMiddleware, createProduct);
-productRoute.put('/update/:id', updateProduct)
-productRoute.delete('/delete/:id', deleteProduct)
+productRoute.put('/update/:id', authMiddleware, updateProduct)
+productRoute.delete('/delete/:id', authMiddleware, deleteProduct)
 
 
 

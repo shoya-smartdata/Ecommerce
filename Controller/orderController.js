@@ -1,4 +1,6 @@
-const { Order, Cart, Product } = require('../models');
+const  Cart = require('../Model/cartModel');
+const Order = require('../Model/orderModel');
+const Product = require('../Model/productModel')
 
 // Place an order
 exports.placeOrder = async (req, res) => {
@@ -16,7 +18,7 @@ exports.placeOrder = async (req, res) => {
       status: 'pending'
     });
 
-    // Clear cart after placing order
+ 
     await Cart.destroy({ where: { userId: req.user.id } });
 
     res.status(201).json(order);
@@ -39,8 +41,20 @@ exports.getOrderById = async (req, res) => {
   }
 };
 
-// Get all orders (admin only)
+//admin 
+
+
+
+const checkAdmin = (user) =>{ 
+  return user && user.role === "admin";
+}
+
 exports.getAllOrders = async (req, res) => {
+
+  
+  if (!checkAdmin(req.user)) {
+    return res.status(403).json({ error: ' only  admin can see all orders  !' });
+}
   try {
     const orders = await Order.findAll({ include: Product });
     res.json(orders);
